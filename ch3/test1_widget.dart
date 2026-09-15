@@ -74,13 +74,23 @@ class MyState extends State<MyStatefulWidget>{
 
   void toggleFavorite(){
     print('Stateful.. toggleFavorite()...');
-    if(favorited){
-      favoriteCount -= 1;
-      favorited = false;
-    }else {
-      favoriteCount += 1;
-      favorited = true;
-    }
+    //Stateful 은 상태를 가지고 상태값 변경에 의한 화면 re-rendering 을 목적으로 한다.
+    //Stateful 의 모든 변수가 상태인가?
+    //상태값이 변경되었다고 화면이 갱신되는 것이 아니라.. 화면 갱신이 필요하면.. 상태를 변경하면서 setState() 호출
+    //setState() 함수에 의한 build 함수 다시 호출.. 화면 갱신은 비동기적으로 처리된다.
+    //상태값이 변경되기 전에 build 함수가 호출될 수 있다.
+    //setState() 의 매개변수 - 함수.. 이 함수를 먼저 호출하고.. 호출이 끝나면.. build 함수 호출..
+    //상태값 변경은 setState() 의 매개변수 함수에서 하는 것이 좋다..
+    setState(() {
+      if(favorited){
+        favoriteCount -= 1;
+        favorited = false;
+      }else {
+        favoriteCount += 1;
+        favorited = true;
+      }
+    });
+
   }
 
   @override
