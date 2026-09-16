@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lab/screen/event/EventScreen.dart';
 
 import './dto/DestinationDto.dart';
 import './wigets/DestinationCard.dart';
@@ -89,7 +90,8 @@ class MainScreen extends StatelessWidget {
                   ),
                   ElevatedButton.icon(
                     onPressed: (){
-
+                      //화면전환..
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => EventScreen()));
                     },
                     icon: Icon(Icons.arrow_drop_down, size: 20,),
                     label: Text('특가 여행지 보기'),
