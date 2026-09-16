@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lab/screen/event/EventScreen.dart';
+import 'package:flutter_lab/screen/main/wigets/MainDrawer.dart';
 import 'package:flutter_lab/screen/myinfo/MyInfoScreen.dart';
 
 import './dto/DestinationDto.dart';
@@ -59,6 +60,7 @@ class MainScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('MainScreen'),
       ),
+      drawer: MainDrawer(),
       //화면에 여러 위젯을 나열하다가.. 화면을 벗어나게 되면..
       //경고 패턴 (노란색/검정색) 출력된다..
       //스크롤 신경써야 한다..
@@ -117,12 +119,12 @@ class MainScreen extends StatelessWidget {
                 children: makeDestinationGrid(),
               ),
             ),
-            ElevatedButton(
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MyInfoScreen()));
-                },
-                child: Text('Go MyInfo'),
-            ),
+            // ElevatedButton(
+            //     onPressed: (){
+            //       Navigator.push(context, MaterialPageRoute(builder: (context) => MyInfoScreen()));
+            //     },
+            //     child: Text('Go MyInfo'),
+            // ),
           ],
         ),
       ),
