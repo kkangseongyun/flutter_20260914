@@ -61,7 +61,24 @@ class DetailScreenState extends State<DetailScreen>{
           },
           body: widgets.elementAt(selectedIndex)
       ),
-      bottomNavigationBar: ,
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,//탭 버튼 클릭시 탭 버튼의 애니메이션 효과, fixed
+        items: <BottomNavigationBarItem>[//tab button
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Main',
+            backgroundColor: Color(0xFF3899DD),//이 버튼이 선태되었을 때 전체 bar 의 background
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'News',
+            backgroundColor: Colors.red,//이 버튼이 선태되었을 때 전체 bar 의 background
+          ),
+        ],
+        currentIndex: selectedIndex,
+        selectedItemColor: Colors.amber,//선택된 탭의 색상..
+        onTap: onItemTapped,
+      ),
     );
   }
 }

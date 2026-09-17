@@ -1,5 +1,6 @@
 //DestinationCard
 import 'package:flutter/material.dart';
+import 'package:flutter_lab/screen/detail/DetailScreen.dart';
 import '../dto/DestinationDto.dart';
 
 class DestinationCard extends StatelessWidget{
@@ -21,7 +22,7 @@ class DestinationCard extends StatelessWidget{
       //InkWell : 이벤트에 의한 잉크 번짐 ui 효과..
       child: InkWell(
         onTap: () {
-
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen()));
         },
         //이 설정이 없으면.. 잉크 번짐 효과가.. 카드의 모서리 둥근 범위를 벗어난 영역까지 진행되어서..
         borderRadius: BorderRadius.circular(10),
