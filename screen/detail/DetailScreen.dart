@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lab/screen/main/dto/DestinationDto.dart';
+import 'package:go_router/go_router.dart';
 import './widgets/DetailMainWidget.dart';
 import './widgets/DetailNewsWidget.dart';
 
@@ -26,6 +28,12 @@ class DetailScreenState extends State<DetailScreen>{
   }
   @override
   Widget build(BuildContext context) {
+
+    //GoRouter 는 내부적으로 화면전환과 관련된 상태 정보를 유지한다..
+    final state = GoRouterState.of(context);
+    final extra = state.extra as Map<String, dynamic>;
+    DestinationDto dto = extra['destination'] as DestinationDto;
+
     return Scaffold(
       //AppBar, body 로 화면 상단을 다양하게 꾸밀수 있기는 하지만..
       //body 에서 스크롤이 발생했을 때 화면 상단을 접히게 할 수 없다..
@@ -46,7 +54,8 @@ class DetailScreenState extends State<DetailScreen>{
                 //접히는 부분의 ui
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(
-                      '스위스',
+                      // '스위스',
+                      dto.destination,
                       style: TextStyle(color: Colors.white),
                   ),
                   titlePadding: EdgeInsets.only(left: 56, bottom: 16,),

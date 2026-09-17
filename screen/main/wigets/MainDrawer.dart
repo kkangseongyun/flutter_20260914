@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../myinfo/MyInfoScreen.dart';
 
@@ -32,9 +33,17 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.home,),
-            title: Text('My Info'),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => MyInfoScreen())),
+              leading: Icon(Icons.home,),
+              title: Text('My Info'),
+              onTap: () {
+                //navigation 1.0 방식..
+                // Navigator.push(context,MaterialPageRoute(builder: (context) => MyInfoScreen()));
+                //go_router
+                context.push('/myinfo/10?q=flutter&page=2', extra: {
+                  'item': 'hello',
+                  'no': 10
+                });
+              }
           )
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lab/screen/event/EventScreen.dart';
 import 'package:flutter_lab/screen/main/wigets/MainDrawer.dart';
 import 'package:flutter_lab/screen/myinfo/MyInfoScreen.dart';
+import 'package:go_router/go_router.dart';
 
 import './dto/DestinationDto.dart';
 import './wigets/DestinationCard.dart';
@@ -94,7 +95,14 @@ class MainScreen extends StatelessWidget {
                   ElevatedButton.icon(
                     onPressed: (){
                       //화면전환..
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => EventScreen()));
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => EventScreen()));
+                      //path 정보가 아닌 name 정보로 전환 요청.. path 에 추가된 parameter 는 넘겨야 한다.
+                      context.pushNamed(
+                        'event',
+                        pathParameters: {'id': '30'},
+                        queryParameters: {'q': 'flutter'},
+                        extra: {'item': 'hello'}
+                      );
                     },
                     icon: Icon(Icons.arrow_drop_down, size: 20,),
                     label: Text('특가 여행지 보기'),

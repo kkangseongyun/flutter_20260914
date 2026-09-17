@@ -17,13 +17,25 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(path: '/', builder: (context, state) => MainScreen()),
     GoRoute(
-      path: '/myinfo',
+      path: '/myinfo/:id',
       builder: (context, state){
-        return MyInfoScreen();
+        //GoRouter에서 파라미터 추출해서 위젯에 전달..
+        String? id = state.pathParameters['id'];
+        String? keyword = state.uri.queryParameters['q'];
+        String? page = state.uri.queryParameters['page'];
+        var extraData = state.extra as Map<String, dynamic>;
+        return MyInfoScreen(
+          id: id,
+          keyword: keyword,
+          page: page,
+          extra: extraData
+        );
       }
     ),
     GoRoute(
-        path: '/event',
+        path: '/event/:id',
+        name: 'event',//name(별칭)으로 화면 전환 요청이 가능..
+        //path 는 생략 불가하고.. path 에 path parameter 가 있다면 꼭 전달해야 한다..
         builder: (context, state){
           return EventScreen();
         }
