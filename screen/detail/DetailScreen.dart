@@ -43,11 +43,25 @@ class DetailScreenState extends State<DetailScreen>{
                 //false
                 pinned: true,//스크롤 되어 접힐 때 한줄은 남길 것인가?(true) 다 사라질 것인가?
                 backgroundColor: Color(0xFF3899DD),
+                //접히는 부분의 ui
+                flexibleSpace: FlexibleSpaceBar(
+                  title: Text(
+                      '스위스',
+                      style: TextStyle(color: Colors.white),
+                  ),
+                  titlePadding: EdgeInsets.only(left: 56, bottom: 16,),
+                  expandedTitleScale: 1.0,//확장 되었을때 타이틀의 크기 배율..
+                  background: Image.asset(
+                    'assets/images/detail_main.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
               )
             ];
           },
-          body: body
+          body: widgets.elementAt(selectedIndex)
       ),
+      bottomNavigationBar: ,
     );
   }
 }
