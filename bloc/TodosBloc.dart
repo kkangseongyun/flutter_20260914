@@ -22,5 +22,12 @@ class TodosBloc extends Bloc<TodosEvent, TodosState>{
           ..remove(event.todo);
       emit(TodosState(newTodos));
     });
+
+    on<ToggleCompletedTodoEvent>((event, emit){
+      List<Todo> newTodos = List.from(state.todos);
+      int index = newTodos.indexOf(event.todo);
+      newTodos[index].toggleCompleted();
+      emit(TodosState(newTodos));
+    });
   }
 }

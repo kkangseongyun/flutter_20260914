@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bloc/TodoBloc.dart';
-import '../../bloc/event/TodoEvent.dart';
+import 'package:go_router/go_router.dart';
+import '../../bloc/TodosBloc.dart';
+import '../../bloc/event/TodosEvent.dart';
 import '../../bloc/state/TodoState.dart';
 
 
@@ -32,7 +33,9 @@ class _AddTodoScreenState extends State<BlocAddScreen> {
         title: title,
         completed: completed,
       );
-
+      TodosBloc bloc = BlocProvider.of<TodosBloc>(context);
+      bloc.add(AddTodoEvent(todo));
+      context.pop();
 
     }
   }

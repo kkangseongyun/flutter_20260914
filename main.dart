@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_lab/bloc/TodosBloc.dart';
 import 'package:flutter_lab/provider/TodosModel.dart';
 import 'package:flutter_lab/riverpod/RiverpodNotifier.dart';
+import 'package:flutter_lab/screen/bloc/BlocAddScreen.dart';
+import 'package:flutter_lab/screen/bloc/BlocHomeScreen.dart';
 import 'package:flutter_lab/screen/detail/DetailScreen.dart';
 import 'package:flutter_lab/screen/dio/DioTestScreen.dart';
 import 'package:flutter_lab/screen/event/EventScreen.dart';
@@ -116,6 +120,28 @@ final GoRouter router = GoRouter(
               path: '/riverpod-add',
               builder: (context, state){
                 return RiverpodAddScreen();
+              }
+          ),
+        ]
+    ),
+    ShellRoute(
+        builder: (context, state, child){
+          return BlocProvider<TodosBloc>(
+            create: (context) => TodosBloc(),
+            child: child,
+          );
+        },
+        routes: [
+          GoRoute(
+              path: '/bloc-home',
+              builder: (context, state){
+                return BlocHomeScreen();
+              }
+          ),
+          GoRoute(
+              path: '/bloc-add',
+              builder: (context, state){
+                return BlocAddScreen();
               }
           ),
         ]

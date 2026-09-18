@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 
@@ -6,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'BlocAddScreen.dart';
 
 
-import '../../bloc/TodoBloc.dart';
+import '../../bloc/TodosBloc.dart';
 import 'widgets/TodoList.dart';
 import '../../bloc/state/TodoState.dart';
 
@@ -66,7 +67,18 @@ class _HomeScreenState extends State<BlocHomeScreen>
           ],
         ),
       ),
-      body:
+      body: BlocBuilder<TodosBloc, TodosState>(
+        builder: (context, state){
+          return TabBarView(
+            controller: controller,
+            children: [
+              TabScreen(state.todos),
+              TabScreen(state.todos.where((todo) => !todo.completed).toList()),
+              TabScreen(state.todos.where((todo) => todo.completed).toList()),
+            ],
+          );
+        },
+      )
       
 
     );

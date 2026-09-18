@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../bloc/state/TodoState.dart';
-import '../../../bloc/event/TodoEvent.dart';
-import '../../../bloc/TodoBloc.dart';
+import '../../../bloc/event/TodosEvent.dart';
+import '../../../bloc/TodosBloc.dart';
 
 class TodoListItem extends StatelessWidget {
   final Todo todo;
@@ -12,12 +12,14 @@ class TodoListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    TodosBloc bloc = BlocProvider.of<TodosBloc>(context);
 
     return ListTile(
       leading: Checkbox(
         value: todo.completed,
         onChanged: (bool? checked) {
-
+          //이벤트 발생
+          bloc.add(ToggleCompletedTodoEvent(todo));
         },
       ),
       title: Text(todo.title),
@@ -27,7 +29,7 @@ class TodoListItem extends StatelessWidget {
           color: Colors.red,
         ),
         onPressed: () {
-
+          bloc.add(DeleteTodoEvent(todo));
         },
       ),
     );
