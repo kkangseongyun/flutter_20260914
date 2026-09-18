@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lab/provider/TodosModel.dart';
+import 'package:flutter_lab/riverpod/RiverpodNotifier.dart';
 import 'package:flutter_lab/screen/detail/DetailScreen.dart';
 import 'package:flutter_lab/screen/dio/DioTestScreen.dart';
 import 'package:flutter_lab/screen/event/EventScreen.dart';
@@ -7,11 +8,18 @@ import 'package:flutter_lab/screen/main/MainScreen.dart';
 import 'package:flutter_lab/screen/myinfo/MyInfoScreen.dart';
 import 'package:flutter_lab/screen/provider/ProviderAddScreen.dart';
 import 'package:flutter_lab/screen/provider/ProviderHomeScreen.dart';
+import 'package:flutter_lab/screen/riverpod/RiverpodAddScreen.dart';
+import 'package:flutter_lab/screen/riverpod/RiverpodHomeScreen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 //앱의 화면정보를 일관되게 등록..
@@ -82,6 +90,35 @@ final GoRouter router = GoRouter(
             }
         ),
       ]
+    ),
+    ShellRoute(
+        builder: (context, state, child){
+          return ProviderScope(//전역위치에 선언한 저장소를 그대로 이용할 수 있고, 하위 어디선가 자신들만을
+            //위한 저장소를 따로 선언할 수 있다. 그렇게 되면 전역위치의 데이터와 다른 데이터 유지가 된다.
+            overrides: [
+              //전역위치에 10개의 provider 등록되었다고 가정..
+              //하위에서 별도로 저장소 선언.. 하나만 override
+              //이 하위에서 provider 를 이용할때.. override 에 선언되지 않은 애들은 전역 저장소에서 찾는다.
+              //override 한 애만.. 별도의 저장소 유지..
+              todosProvider.overrideWith(TodosNotifier.new),
+            ],
+            child: child,
+          );
+        },
+        routes: [
+          GoRoute(
+              path: '/riverpod-home',
+              builder: (context, state){
+                return RiverpodHomeScreen();
+              }
+          ),
+          GoRoute(
+              path: '/riverpod-add',
+              builder: (context, state){
+                return RiverpodAddScreen();
+              }
+          ),
+        ]
     ),
   ],
 );
