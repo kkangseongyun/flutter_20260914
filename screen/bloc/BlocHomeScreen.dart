@@ -1,52 +1,59 @@
 import 'package:flutter/material.dart';
-import 'widgets/TodoList.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../riverpod/RiverpodNotifier.dart';
+
+
+import 'BlocAddScreen.dart';
+
+
+import '../../bloc/TodoBloc.dart';
+import 'widgets/TodoList.dart';
+import '../../bloc/state/TodoState.dart';
 
 class TabScreen extends StatelessWidget {
+
   List<Todo> todos;
 
   TabScreen(this.todos);
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: TodoList(this.todos));
+    return Container(
+      child: TodoList(
+        todos: this.todos,
+      ),
+    );
   }
 }
 
-class RiverpodHomeScreen extends ConsumerStatefulWidget {
+
+class BlocHomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<RiverpodHomeScreen>
+class _HomeScreenState extends State<BlocHomeScreen>
     with SingleTickerProviderStateMixin {
+
   late TabController controller;
 
   @override
   void initState() {
     super.initState();
-    controller = TabController(length: 3, vsync: this); //animation
+    controller = TabController(length: 3, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
 
-    //구독개념으로.. 상태 획득..
-    final todos = ref.watch(todosProvider);
-
-    print(todos.length);
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Todos'),
+        title: Text('Todos-Bloc'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              context.push("/riverpod-add");
+              context.push('/bloc-add');
             },
           ),
         ],
@@ -59,14 +66,11 @@ class _HomeScreenState extends ConsumerState<RiverpodHomeScreen>
           ],
         ),
       ),
-      body: TabBarView(
-        controller: controller,
-        children: <Widget>[
-          TabScreen(todos),
-          TabScreen(todos.where((todo) => !todo.completed).toList()),
-          TabScreen(todos.where((todo) => todo.completed).toList()),
-        ],
-      ),
+      body:
+      
+
     );
+
+
   }
 }
