@@ -73,6 +73,13 @@ class MainDrawer extends StatelessWidget {
                 context.push('/bloc-home');
               }
           ),
+          ListTile(
+              leading: Icon(Icons.home,),
+              title: Text('platform'),
+              onTap: () {
+                context.push('/platform');
+              }
+          ),
         ],
       ),
     );
