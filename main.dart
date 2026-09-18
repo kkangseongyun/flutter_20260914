@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lab/provider/TodosModel.dart';
 import 'package:flutter_lab/screen/detail/DetailScreen.dart';
 import 'package:flutter_lab/screen/dio/DioTestScreen.dart';
 import 'package:flutter_lab/screen/event/EventScreen.dart';
 import 'package:flutter_lab/screen/main/MainScreen.dart';
 import 'package:flutter_lab/screen/myinfo/MyInfoScreen.dart';
+import 'package:flutter_lab/screen/provider/ProviderAddScreen.dart';
+import 'package:flutter_lab/screen/provider/ProviderHomeScreen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -52,6 +56,32 @@ final GoRouter router = GoRouter(
         builder: (context, state){
           return DioTestScreen();
         }
+    ),
+    //일반적으로 상태 등록은 MyApp 상위에 등록해서.. 전역에서 사용가능하게..
+    //비슷한 로직의 다른 상태관리 테스트를 위해서.. ShellRoute 로 감싼 부분만 사용하게 한정지은 것이다..
+    //ShellRoute - Route 를 중첩(계층)시켜서 등록할 때 사용..
+    //ShellRoute 로 감싼 부분의 화면을 위한 스택이 별도로 준비된다..
+    ShellRoute(
+      builder: (context, state, child){
+        return ChangeNotifierProvider(//하위에서 provider 이용하게 등록.. routes 에 등록된 위젯들이 사용가능하다.
+          create: (_) => TodosModel(),
+          child: child,
+        );
+      },
+      routes: [
+        GoRoute(
+            path: '/provider-home',
+            builder: (context, state){
+              return ProviderHomeScreen();
+            }
+        ),
+        GoRoute(
+            path: '/provider-add',
+            builder: (context, state){
+              return ProviderAddScreen();
+            }
+        ),
+      ]
     ),
   ],
 );
